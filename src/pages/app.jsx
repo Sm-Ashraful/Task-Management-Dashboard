@@ -1,14 +1,13 @@
 import { Helmet } from 'react-helmet-async';
 
 import { AppView } from 'src/sections/overview/view';
-
 // ----------------------------------------------------------------------
 
 export default function AppPage() {
   return (
     <>
       <Helmet>
-        <title> Dashboard | Minimal UI </title>
+        <title> Task Management Dashboard </title>
       </Helmet>
 
       <AppView />

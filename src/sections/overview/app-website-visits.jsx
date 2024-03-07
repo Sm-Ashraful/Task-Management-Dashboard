@@ -8,36 +8,25 @@ import Chart, { useChart } from 'src/components/chart';
 
 // ----------------------------------------------------------------------
 
-export default function AppWebsiteVisits({ title, subheader, chart, ...other }) {
-  const { labels, colors, series, options } = chart;
+export default function AppWebsiteVisits({ title, subheader, ...other }) {
+  // const { series } = chart;
 
   const chartOptions = useChart({
-    colors,
-    plotOptions: {
-      bar: {
-        columnWidth: '16%',
+    options: {
+      chart: {
+        id: "basic-bar"
       },
+      xaxis: {
+        categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+      }
     },
-    fill: {
-      type: series.map((i) => i.fill),
-    },
-    labels,
-    xaxis: {
-      type: 'datetime',
-    },
-    tooltip: {
-      shared: true,
-      intersect: false,
-      y: {
-        formatter: (value) => {
-          if (typeof value !== 'undefined') {
-            return `${value.toFixed(0)} visits`;
-          }
-          return value;
-        },
-      },
-    },
-    ...options,
+    series: [
+      {
+        name: "series-1",
+        data: [30, 40, 45, 50, 49, 60, 70, 91]
+      }
+    ]
+
   });
 
   return (
@@ -46,10 +35,10 @@ export default function AppWebsiteVisits({ title, subheader, chart, ...other }) 
 
       <Box sx={{ p: 3, pb: 1 }}>
         <Chart
-          dir="ltr"
-          type="line"
-          series={series}
-          options={chartOptions}
+          // dir="ltr"
+          type="bar"
+          series={chartOptions.series}
+          options={chartOptions.options}
           width="100%"
           height={364}
         />
