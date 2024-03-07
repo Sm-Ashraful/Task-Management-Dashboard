@@ -10,30 +10,35 @@ import Typography from '@mui/material/Typography';
 import { fDate } from 'src/utils/format-time';
 
 import Label from 'src/components/label';
-
+import Iconify from 'src/components/iconify';
+import ReactionButtons from 'src/components/ReactionButton';
 
 // ----------------------------------------------------------------------
 
 export default function ShopProductCard({ product }) {
-
   const renderDate = (
     <Typography
       variant="caption"
       component="div"
       sx={{
-        display: "flex",
-        alignItems: "center",
-        color: 'text.disabled',
-
+        display: 'flex',
+        alignItems: 'center',
+        color: product.status === 'completed' ? 'text.disabled' : 'error.main',
       }}
     >
-      {fDate(faker.date.past(),)}
+      {fDate(faker.date.past())}
     </Typography>
   );
 
   return (
     <Card>
-      <Stack spacing={2} sx={{ p: 3, border: 2, borderRadius: 2, borderColor: product.status === 'completed' ? "success.main" : "primary.main" }}>
+      <Stack
+        spacing={2}
+        sx={{
+          p: 3,
+          backgroundColor: product.status === 'completed' ? 'success.lighter' : 'primary.light',
+        }}
+      >
         <Link color="inherit" underline="hover" variant="subtitle2" sx={{ paddingTop: 3 }}>
           {product.title}
         </Link>
@@ -42,37 +47,43 @@ export default function ShopProductCard({ product }) {
         </Typography>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <Typography variant='caption'>
-            Due Date:
-          </Typography>
+          <Typography variant="caption">Due Date:</Typography>
 
           {renderDate}
         </Stack>
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          {product.status !== 'completed' && (
-            <Button component="button" variant='outlined'>
-              Complete
+          {product.status !== 'completed' ? (
+            <Button direction="row" component="button" variant="contained" color="success">
+              <Iconify width={16} icon="noto-v1:check-mark" sx={{ mr: 0.5 }} />
+              <Typography variant="caption">Mark as Complete</Typography>
             </Button>
+          ) : (
+            <ReactionButtons post={product} />
           )}
+
           <Button
             component="button"
-            variant={product.status === 'completed' ? 'contained' : 'outlined'}
             sx={{
               color: 'error.main',
-              backgroundColor: product.status === 'completed' ? 'warning.lighter' : "",
-              width: product.status === 'completed' ? '100%' : 'auto',
             }}
           >
-            Delete
+            <Iconify width={16} icon="mingcute:delete-2-fill" sx={{ mr: 0.5 }} />
           </Button>
         </Stack>
 
-        {
-          product.status === 'completed' && <Label sx={{
-            position: "absolute", left: "50%", top: 0,
-            transform: "translateX(-50%)",
-          }} color='info'>{product.status}</Label>
-        }
+        {product.status === 'completed' && (
+          <Label
+            sx={{
+              position: 'absolute',
+              left: '50%',
+              top: 0,
+              transform: 'translateX(-50%)',
+            }}
+            color="info"
+          >
+            {product.status}
+          </Label>
+        )}
       </Stack>
     </Card>
   );

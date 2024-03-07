@@ -1,44 +1,123 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
+// import Grid from '@mui/material/Grid';
+import Tab from '@mui/material/Tab';
 import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
+import TabList from '@mui/lab/TabList';
+import { Button } from '@mui/material';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
+import TabPanel from '@mui/lab/TabPanel';
+import TabContext from '@mui/lab/TabContext';
 import Typography from '@mui/material/Typography';
 import CardHeader from '@mui/material/CardHeader';
 
 import { fToNow } from 'src/utils/format-time';
 
+import FormModal from 'src/layouts/dashboard/common/form-popup';
+// import FilterTab from 'src/components/FilterTabs';
+
 import Iconify from 'src/components/iconify';
-import Scrollbar from 'src/components/scrollbar';
+
+import ShopProductCard from '../products/product-card';
 
 // ----------------------------------------------------------------------
 
-export default function AppNewsUpdate({ title, subheader, list, ...other }) {
+export default function AppNewsUpdate({ title, lists }) {
+  const [value, setValue] = React.useState('all');
+  const [open, setOpen] = React.useState(false);
+  const handleOpenForm = () => setOpen(true);
+  const handleCloseForm = () => setOpen(false);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const filteredLists = () => {
+    switch (value) {
+      case 'active':
+        return lists.filter((task) => task.status === 'active');
+      case 'complete':
+        return lists.filter((task) => task.status === 'completed');
+      default:
+        return lists;
+    }
+  };
+
   return (
-    <Card {...other}>
-      <CardHeader title={title} subheader={subheader} />
+    <Card>
+      <CardHeader title={title} />
+      <Box sx={{ px: 3.5, pt: 3 }}>
+        <TabContext value={value}>
+          <Box
+            sx={{
+              borderBottom: 1,
+              borderColor: 'divider',
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
+            <TabList onChange={handleChange} aria-label="lab API tabs example">
+              <Tab label="All Task" value="all" />
+              <Tab label="Active Task" value="active" />
+              <Tab label="Complete Task" value="complete" />
+            </TabList>
+            <Button
+              onClick={handleOpenForm}
+              direction="row"
+              component="button"
+              variant="contained"
+              color="success"
+              sx={{ ml: 'auto' }}
+            >
+              <Iconify width={16} icon="noto-v1:check-mark" sx={{ mr: 0.5 }} />
+              <Typography variant="caption">Add Task</Typography>
+            </Button>
 
-      <Scrollbar>
-        <Stack spacing={3} sx={{ p: 3, pr: 0 }}>
-          {list.map((news) => (
-            <NewsItem key={news.id} news={news} />
-          ))}
-        </Stack>
-      </Scrollbar>
-
-      <Divider sx={{ borderStyle: 'dashed' }} />
-
-      <Box sx={{ p: 2, textAlign: 'right' }}>
-        <Button
-          size="small"
-          color="inherit"
-          endIcon={<Iconify icon="eva:arrow-ios-forward-fill" />}
-        >
-          View all
-        </Button>
+            <FormModal open={open} handleClose={handleCloseForm} />
+          </Box>
+          <TabPanel value="all">
+            <Stack
+              sx={{
+                gap: 2,
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+              }}
+            >
+              {filteredLists().map((list) => (
+                <ShopProductCard key={list.title} product={list} />
+              ))}
+            </Stack>
+          </TabPanel>
+          <TabPanel value="active">
+            <Stack
+              sx={{
+                gap: 2,
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+              }}
+            >
+              {filteredLists().map((list) => (
+                <ShopProductCard key={list.title} product={list} />
+              ))}
+            </Stack>
+          </TabPanel>
+          <TabPanel value="complete">
+            <Stack
+              sx={{
+                gap: 2,
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+              }}
+            >
+              {filteredLists().map((list) => (
+                <ShopProductCard key={list.titles} product={list} />
+              ))}
+            </Stack>
+          </TabPanel>
+        </TabContext>
       </Box>
     </Card>
   );
@@ -46,8 +125,7 @@ export default function AppNewsUpdate({ title, subheader, list, ...other }) {
 
 AppNewsUpdate.propTypes = {
   title: PropTypes.string,
-  subheader: PropTypes.string,
-  list: PropTypes.array.isRequired,
+  lists: PropTypes.array.isRequired,
 };
 
 // ----------------------------------------------------------------------
