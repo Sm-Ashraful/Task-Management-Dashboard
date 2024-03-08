@@ -17,7 +17,7 @@
 ---
 
 ### Description
-🚀 This project is a task management application built using the Minimal Kit React admin template. It allows users to efficiently manage their tasks with a user-friendly interface. The application incorporates various features including task listing, addition, updating, completion, and deletion, along with filtering capabilities. Below are the key functionalities implemented:
+-This project is a task management application built using the Minimal Kit React admin template. It allows users to efficiently manage their tasks with a user-friendly interface. The application incorporates various features including task listing, addition, updating, completion, and deletion, along with filtering capabilities. Below are the key functionalities implemented:
 ---
 ## Key Feature
 
