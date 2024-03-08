@@ -37,11 +37,14 @@ export const date_validation = {
   name: 'dueDate',
   label: 'Due Date',
   type: 'date',
-  id: 'due date',
+  id: 'due_date',
   validation: {
     required: {
       value: true,
       message: 'Due Date is important',
     },
+
   },
 };
+
+

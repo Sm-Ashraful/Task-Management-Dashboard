@@ -19,6 +19,8 @@ import { fToNow } from 'src/utils/format-time';
 import FormModal from 'src/layouts/dashboard/common/form-popup';
 // import FilterTab from 'src/components/FilterTabs';
 
+import { useResponsive } from 'src/hooks/use-responsive';
+
 import Iconify from 'src/components/iconify';
 
 import ShopProductCard from '../products/product-card';
@@ -30,6 +32,8 @@ export default function AppNewsUpdate({ title, lists }) {
   const [open, setOpen] = React.useState(false);
   const handleOpenForm = () => setOpen(true);
   const handleCloseForm = () => setOpen(false);
+
+  const lgUp = useResponsive('up', 'lg');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -45,7 +49,6 @@ export default function AppNewsUpdate({ title, lists }) {
         return lists;
     }
   };
-
   return (
     <Card>
       <CardHeader title={title} />
@@ -56,25 +59,21 @@ export default function AppNewsUpdate({ title, lists }) {
               borderBottom: 1,
               borderColor: 'divider',
               display: 'flex',
+              flexDirection: `${lgUp ? "row" : "column"}`,
               justifyContent: 'space-between',
             }}
           >
-            <TabList onChange={handleChange} aria-label="lab API tabs example">
+            <TabList onChange={handleChange} aria-label="lab API tabs example" sx={{ flexGrow: 1, flexShrink: 1, flexBasis: "0%", order: `${!lgUp ? 1 : 0}` }}>
               <Tab label="All Task" value="all" />
               <Tab label="Active Task" value="active" />
               <Tab label="Complete Task" value="complete" />
             </TabList>
-            <Button
-              onClick={handleOpenForm}
-              direction="row"
-              component="button"
-              variant="contained"
-              color="success"
-              sx={{ ml: 'auto' }}
-            >
-              <Iconify width={16} icon="noto-v1:check-mark" sx={{ mr: 0.5 }} />
-              <Typography variant="caption">Add Task</Typography>
-            </Button>
+            <Box>
+              <Button onClick={handleOpenForm} variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
+                Add Task
+              </Button>
+            </Box>
+
 
             <FormModal open={open} handleClose={handleCloseForm} />
           </Box>
@@ -83,12 +82,12 @@ export default function AppNewsUpdate({ title, lists }) {
               sx={{
                 gap: 2,
                 display: 'grid',
-                gridTemplateColumns: 'repeat(3, 1fr)',
+                gridTemplateColumns: `${lgUp ? 'repeat(3, 1fr)' : '1fr'}`,
               }}
             >
-              {filteredLists().map((list) => (
+              {filteredLists()?.length > 0 ? filteredLists().map((list) => (
                 <ShopProductCard key={list.title} product={list} />
-              ))}
+              )) : <Typography>Task List is Empty</Typography>}
             </Stack>
           </TabPanel>
           <TabPanel value="active">
@@ -96,12 +95,14 @@ export default function AppNewsUpdate({ title, lists }) {
               sx={{
                 gap: 2,
                 display: 'grid',
-                gridTemplateColumns: 'repeat(3, 1fr)',
+                gridTemplateColumns: `${lgUp ? 'repeat(3, 1fr)' : '1fr'}`,
               }}
             >
-              {filteredLists().map((list) => (
-                <ShopProductCard key={list.title} product={list} />
-              ))}
+              {
+                filteredLists()?.length > 0 ? filteredLists().map((list) => (
+                  <ShopProductCard key={list.title} product={list} />
+                )) : <Typography>There is no item left in active list</Typography>
+              }
             </Stack>
           </TabPanel>
           <TabPanel value="complete">
@@ -109,17 +110,17 @@ export default function AppNewsUpdate({ title, lists }) {
               sx={{
                 gap: 2,
                 display: 'grid',
-                gridTemplateColumns: 'repeat(3, 1fr)',
+                gridTemplateColumns: `${lgUp ? 'repeat(3, 1fr)' : '1fr'}`,
               }}
             >
-              {filteredLists().map((list) => (
+              {filteredLists()?.length > 0 ? filteredLists().map((list) => (
                 <ShopProductCard key={list.titles} product={list} />
-              ))}
+              )) : <Typography>Complete item is empty</Typography>}
             </Stack>
           </TabPanel>
         </TabContext>
-      </Box>
-    </Card>
+      </Box >
+    </Card >
   );
 }
 

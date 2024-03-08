@@ -1,46 +1,59 @@
-## Minimal [(Free version)](https://minimal-kit-react.vercel.app/)
+## Task-01: Building a Task Management Dashboard (Using Admin Dashboard Template)
 
-![license](https://img.shields.io/badge/license-MIT-blue.svg)
+>Task Management Dashboard by using minimal-kit-react template.
 
-> Free React Admin Dashboard made with Material-UI components and React.
+![preview](public/assets/homep.png)
 
-![preview](public/assets/preview.jpg)
-
-## Demo
-
-- [Dashboard Page](https://minimal-kit-react.vercel.app/)
-- [Users Page](https://minimal-kit-react.vercel.app/user)
-- [Products Page](https://minimal-kit-react.vercel.app/products)
-- [Blog Page](https://minimal-kit-react.vercel.app/blog)
-- [Login Page](https://minimal-kit-react.vercel.app/login)
-- [Not Found Page](https://minimal-kit-react.vercel.app/404)
+---
 
 ## Quick start
 
-- [Download from Github](https://github.com/minimal-ui-kit/material-kit-react/archive/refs/heads/main.zip) or clone the repo : `git clone https://github.com/minimal-ui-kit/material-kit-react.git`
+- [Download from Github](https://github.com/Sm-Ashraful/Task-Management-Dashboard) or clone the repo : `git clone https://github.com/Sm-Ashraful/Task-Management-Dashboard.git`
 - Recommended `Node.js v18.x`.
 - **Install:** `yarn install`
 - **Start:** `yarn dev`
 - **Build:** `yarn build`
 
-## Upgrade to PRO Version
+---
 
-| Minimal Free     | [Minimal Pro](https://material-ui.com/store/items/minimal-dashboard/) |
-| :--------------- | :-------------------------------------------------------------------- |
-| **6** Demo Pages | **70+** Demo Pages                                                    |
-| -                | Authentication with **Amplify**, **Auth0**, **JWT** and **Firebase**  |
-| -                | [+More components](https://minimals.cc/components)                    |
-| -                | Dark & light mode                                                     |
-| -                | Next.js version                                                       |
-| -                | TypeScript version (Standard Plus and Extended license)               |
-| -                | Design Figma File (Standard Plus and Extended license)                |
-| -                | Complete Users Flows                                                  |
-| -                | Learn more: [Package & License](https://docs.minimals.cc/package)     |
+### Description
+🚀 This project is a task management application built using the Minimal Kit React admin template. It allows users to efficiently manage their tasks with a user-friendly interface. The application incorporates various features including task listing, addition, updating, completion, and deletion, along with filtering capabilities. Below are the key functionalities implemented:
+---
+## Key Feature
 
+### 1.Task Management:
+ - [View a comprehensive list of your tasks with titles, descriptions, and due dates.]
+ -[Seamlessly mark tasks as completed for better organization.]
+ -[Effortlessly delete tasks you no longer need.]
+ ### 2.Task Creation:
+ -[Effortlessly add new tasks using a dedicated form.
+]
+ -[Ensure data integrity with client-side validation.]
+ ### 3.Task Editing:
+  -[Update task details with ease, promoting flexibility.]
+  -[Leverage modals and in-place editing for a smooth user experience.]
+  ### 4.Task Completion Tracking:
+   -[Clearly distinguish between active tasks and completed tasks with distinct visual styles.]
+   -[Maintain focus on active tasks while keeping completed tasks readily accessible.]
+   ### 5.Task Filtering:
+    -[Apply filters to view only active tasks, completed tasks, or all tasks at once.]
+    -[Enhance your task management efficiency with flexible viewing options.]
+
+---
+
+## Technologies Used:
+-[React]
+-[Redux-Toolkit]
+-[React-Hook-Form]
+-[Redux-persist]
+-[Material-UI]
+-[HTML5]
+-[CSS3]
+-[framer-motion]
 ## License
 
-Distributed under the MIT License. See [LICENSE](https://github.com/minimal-ui-kit/minimal.free/blob/main/LICENSE.md) for more information.
+Distributed under the MIT License.
 
 ## Contact us
 
-Email: support@minimals.cc
+Email: smashraful.dev@gmail.com

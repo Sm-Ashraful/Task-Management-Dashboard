@@ -11,6 +11,7 @@ export default function AppPage() {
       </Helmet>
 
       <AppView />
+
     </>
   );
 }

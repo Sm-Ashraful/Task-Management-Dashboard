@@ -1,5 +1,9 @@
-import * as React from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
+// import dayjs from 'dayjs';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { useDispatch } from 'react-redux';
 import { useForm, FormProvider } from 'react-hook-form';
 
 import Box from '@mui/material/Box';
@@ -9,9 +13,13 @@ import Backdrop from '@mui/material/Backdrop';
 import Typography from '@mui/material/Typography';
 import { Card, Stack, Button } from '@mui/material';
 
+// import { fDate } from 'src/utils/format-time';
 import { date_validation, desc_validation, title_validation } from 'src/utils/input-validation';
 
+import { taskAdded } from 'src/store/slices/taskSlice';
+
 import CusInputField from 'src/components/Input';
+// import DateInputField from 'src/components/Input/DateInputField';
 
 const style = {
   position: 'absolute',
@@ -27,22 +35,31 @@ const style = {
 
 export default function FormModal({ open, handleClose }) {
   const methods = useForm();
-  const [success, setSuccess] = React.useState(false);
+  const dispatch = useDispatch()
+  const [success, setSuccess] = useState(false);
+
+
+
 
   const onSubmit = methods.handleSubmit((data) => {
-    console.log(data);
-    methods.reset();
+    dispatch(taskAdded(data.title, data.description, data.dueDate))
     setSuccess(true);
-    console.log('success: ', success);
+    handleClose()
+    console.log("success: ", success)
   });
+  const submitHandle = (e) => {
+
+    e.preventDefault()
+  }
 
   const renderForm = (
     <FormProvider {...methods}>
-      <form onSubmit={(e) => e.preventDefault()} noValidate autoComplete="off">
+      <form onSubmit={submitHandle} noValidate autoComplete="off">
         <Stack spacing={3} paddingTop={3}>
           <CusInputField {...title_validation} />
           <CusInputField {...desc_validation} />
           <CusInputField {...date_validation} />
+
         </Stack>
         <Button type="submit" onClick={onSubmit}>
           On Submit

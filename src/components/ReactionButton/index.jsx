@@ -1,6 +1,10 @@
 import PropTypes from 'prop-types';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { useDispatch } from 'react-redux';
 
 import { Button } from '@mui/material';
+
+import { reactionToAdded } from 'src/store/slices/taskSlice';
 
 const reactionEmoji = {
   thumbsUp: '👍',
@@ -9,11 +13,21 @@ const reactionEmoji = {
 };
 
 export default function ReactionButtons({ post }) {
-  const reactionButtons = Object.entries(reactionEmoji).map(([name, emoji]) => (
-    <Button sx={{ minWidth: 'auto' }} key={name} type="button">
+
+  const dispatch = useDispatch()
+  const reactionButtons = Object.entries(reactionEmoji).map(([name, emoji]) => {
+    console.log(post.id)
+    return <Button sx={{ minWidth: 'auto' }} key={name} type="button" onClick={(e) => {
+      e.stopPropagation()
+      dispatch(reactionToAdded({ taskId: post.id, reaction: name }))
+    }
+
+    }>
       {emoji} {post.reactions[name]}
     </Button>
-  ));
+
+  })
+
 
   return <div>{reactionButtons}</div>;
 }
