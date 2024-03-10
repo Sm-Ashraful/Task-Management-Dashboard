@@ -10,6 +10,8 @@
 
 - [Download from Github](https://github.com/Sm-Ashraful/Task-Management-Dashboard) or clone the repo : `git clone https://github.com/Sm-Ashraful/Task-Management-Dashboard.git`
 - Recommended `Node.js v18.x`.
+- - **Change Repo:** `cd Task-Management-Dashboard`
+- **Install:** `yarn install`
 - **Install:** `yarn install`
 - **Start:** `yarn dev`
 - **Build:** `yarn build`
